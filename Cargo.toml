@@ -1,5 +1,5 @@
 [package]
-name = "RustKurs"
+name = "rust_kurs"
 version = "0.1.0"
 authors = ["Niwo1493 <nicolai-wolfrom@gmx.de>"]
 edition = "2018"
