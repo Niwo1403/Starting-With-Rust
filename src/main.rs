@@ -1,4 +1,12 @@
-use std::ops::Add;
+use std::ops::Add::{self};
+
+// use aa::bb as cc;
+// kann auch ohne import mit aa::bb genutzt werden (wie bei Java)
+
+// public  (pub) - von jedem Parant angesprochen werden
+// private (std) - direkter Parent kann drauf zugreigen
+// childs können immer drauf zugreifen
+// Eigentlich wie in Java
 
 fn main() { // argc: isize, argv: c_void
     println!("Hello world!");
@@ -10,16 +18,34 @@ fn main() { // argc: isize, argv: c_void
     let t = get_input_until("end\n", false);
     println!("{}", t);
 
+    // struct match enum
+    struct_match_enum();
+
     // Generics, Traits, Implementations
     print!("{}\n\n", generic_sum(&[1, 2, 3, 4]));
     print_traits();
 
-    // struct match enum
-    struct_match_enum();
+    // Closure
+    let add_one = |x: u32| -> u32 {x + 1};
+    let var :u32 = 3;
+    print!("{}, {}\n", add_one(var), add_one(var + 2));
+
+    // Threads
+    start_threads();
+
+
+}
+
+fn start_threads() {
 
 }
 
 fn print_traits() {
+    // umfassende Funktionen für Iteratoren (traits) in der Std.-Library
+    // (map, zip, teake_while, skip_while, count, max, min, ...)
+    // collect: wandelt Iterator Generic um; Generic muss FromIterator implementieren
+    let _v: Vec<i32> = vec![1,2,3].into_iter().map(|x| x * 2).collect();
+
     struct Attributes {
         s1: String,
         s2: String
@@ -60,13 +86,15 @@ fn struct_match_enum() {
         Action3 {},
     }
 
+    use E::*;
+
     let u = 1;
     let s_imp = S {u, v: 2};
 
     let mut e_imp = E::Action3 {};
     match e_imp {
-        E::Action1 {x, y} => {println!("{}, {}", x, y)},
-        E::Action2 {x, y, z} => {println!("{}, {}, {}", x, y, z)},
+        Action1 {x, y} => {println!("{}, {}", x, y)},
+        Action2 {x, y, z} => {println!("{}, {}, {}", x, y, z)},
         _ => {println!("Not Found!")},
     }
 
